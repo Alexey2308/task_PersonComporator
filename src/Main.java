@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Main {
@@ -13,7 +14,21 @@ public class Main {
 
         System.out.println("Неотсортированный список выглядит так:" + "\n" + personsList);
 
-        Collections.sort(personsList, new PersonCompare());
+        Comparator<Person> comparator = (o1, o2) -> {
+            int surnameLenghtFirst = o1.getSurname().split(" ").length;
+            int surnameLenghtSecond = o2.getSurname().split(" ").length;
+
+            if (surnameLenghtFirst == surnameLenghtSecond) {
+                return Integer.compare(o1.getAge(), o2.getAge());
+            }
+
+            if (surnameLenghtFirst < surnameLenghtSecond) return -1;
+
+            return 1;
+        };
+
+        Collections.sort(personsList, comparator);
+
         System.out.println("Отсортировванный по условию список выглядит так:" + "\n" + personsList);
 
 
